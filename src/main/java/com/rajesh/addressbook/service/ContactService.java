@@ -43,11 +43,11 @@ public class ContactService {
         log.info(
                 "Fetching Contact, Address, Phone numbers and Groups"
         );
-        Contact result = entityManager.createQuery("SELECT person "
-                        + " FROM distinct Contact person"
+        Contact result = entityManager.createQuery("SELECT distinct person "
+                        + " FROM  Contact person"
                         + " LEFT JOIN FETCH person.addresses"
-                        + " LEFT JOIN FETCH person.groups"
-                        + " LEFT JOIN FETCH person.phoneNumbers"
+                        + " LEFT JOIN  person.groups"
+                        + " LEFT JOIN  person.phoneNumbers"
                         + " WHERE person.id= :contactId " ,
                 Contact.class)
                 .setParameter("contactId", contactId)
