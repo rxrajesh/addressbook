@@ -1,0 +1,20 @@
+package com.rajesh.addressbook.domain;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+
+@Entity
+public class PhoneNumber {
+
+    @Id
+    private Integer id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_id")
+    @JsonBackReference(value="contact-phoneNumber")
+    private Contact contact;
+
+    private String phoneNumber;
+
+    private String phoneType;
+}

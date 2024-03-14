@@ -1,10 +1,12 @@
 package com.rajesh.addressbook.domain;
 
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,11 +16,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="Contact")
 public class Contact {
 
-    private Integer Id;
+    @Id
+    private Integer id;
 
-    private String fistName;
+    private String firstName;
 
     private String lastName;
 
@@ -26,9 +30,17 @@ public class Contact {
 
     List<String> emails;
 
-    List<String> phone;
+    @OneToMany(mappedBy = "contact",cascade = CascadeType.ALL)
+    @JsonManagedReference(value="contact-phoneNumber")
+    List<PhoneNumber> phoneNumbers;
 
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="contact-address")
     List<Address> addresses;
+
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="contact-group")
+    List<ContactGroup> groups;
 
     LocalDate dob;
 }
