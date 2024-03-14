@@ -30,15 +30,15 @@ public class Contact {
 
     List<String> emails;
 
-    @OneToMany(mappedBy = "contact",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contact",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference(value="contact-phoneNumber")
     List<PhoneNumber> phoneNumbers;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference(value="contact-address")
     List<Address> addresses;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference(value="contact-group")
     List<ContactGroup> groups;
 

@@ -17,7 +17,7 @@ public class Address {
     @Id
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id")
     @JsonBackReference(value="contact-address")
     private Contact contact;

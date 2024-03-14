@@ -2,6 +2,7 @@ package com.rajesh.addressbook.controller;
 
 import com.rajesh.addressbook.domain.Contact;
 import com.rajesh.addressbook.repository.ContactRepository;
+import com.rajesh.addressbook.service.ContactService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +20,14 @@ import static com.rajesh.addressbook.constants.ApiConstants.CONTACTBYID;
 public class Controller {
 
     private final ContactRepository contactRepository;
+    private final ContactService contactService;
 
     @Autowired
-    public Controller(ContactRepository contactRepository) {
+    public Controller(ContactRepository contactRepository,
+                      ContactService contactService
+    ) {
         this.contactRepository = contactRepository;
+        this.contactService = contactService;
     }
 
 
@@ -35,9 +40,14 @@ public class Controller {
     }
 
     @GetMapping(CONTACTBYID)
-    public Optional<Contact> getContactById(@PathVariable Integer id){
-        return contactRepository.findById(id);
+    public Contact getContactById(@PathVariable Integer id){
+     //   return contactRepository.findById(id);
+        return contactService.getFullContactById(id);
 
+    }
+    @GetMapping("/addressbook/byID/{id}")
+    public Optional<Contact> getContactByIdAlt(@PathVariable Integer id){
+        return contactRepository.findById(id);
     }
 
 }
